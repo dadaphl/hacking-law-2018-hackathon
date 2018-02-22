@@ -1,0 +1,73 @@
+.index-screen {
+  p, h1, h2, h3 {
+    font-weight:normal;
+    text-align:center;
+  }
+  header .search {
+    display:flex;
+    justify-content:flex-end;
+    margin-top:40px;
+    @include only-phone {
+    }
+  }
+  .search-input {
+    /* background: */
+    background: $smoke;
+    box-shadow: 0 4px 8px 0 rgba(60,60,60,0.10);
+    border-radius: 100px 0 00px 100px;
+    width:100%;
+
+    padding:15px 0 15px 20px;
+    @include font-size(s);
+  }
+  .search-button {
+    background: $magaenta;
+    box-shadow: 0 4px 8px 0 rgba(60,60,60,0.10);
+    border-radius: 0 50px 50px 0;
+    border:none;
+    color:$white;
+    padding:15px 25px 15px 20px;
+  }
+  .popular {
+    text-align:center;
+  }
+  .offer {
+    @include content-max-width;
+    justify-content:space-between;
+    align-items:center;
+    //margin:50px auto;
+  }
+  .offer + .offer {
+    border-top:2px solid $aubergin;
+    margin-top:20px;
+    padding-top:20px;
+  }
+  .demand-price {
+    display:flex;
+    flex-wrap:wrap;
+    > * {
+      width:100%;
+      input {
+        margin-top:5px;
+        padding:8px;
+        @include font-size(l);
+        width:100px;
+        text-align:right;
+      }
+    }
+  }
+  .price {
+    @include font-size(xl)
+    font-family:'Roboto Mono';
+    font-weight:bold;
+    margin-right:30px;
+  }
+  .bottom {
+    align-items:flex-end;
+    justify-content:flex-end;
+  }
+  .data-field {
+    opacity:0.6;
+    @include font-size(s);
+  }
+}
