@@ -2,8 +2,22 @@ import Vue from 'vue'
 import App from './App'
 import VueResource from 'vue-resource'
 import router from './router'
+import VueFroala from 'vue-froala-wysiwyg'
+import VeeValidate from 'vee-validate'
 
+// Require Froala Editor js file.
+require('froala-editor/js/froala_editor.pkgd.min')
+
+// Require Froala Editor css files.
+require('froala-editor/css/froala_editor.pkgd.min.css')
+require('font-awesome/css/font-awesome.css')
+require('froala-editor/css/froala_style.min.css')
+
+// Import and use Vue Froala lib.
+Vue.use(VueFroala)
+Vue.use(VeeValidate)
 Vue.use(VueResource)
+
 Vue.config.productionTip = false
 
 Vue.http.options.root = process.env.AETERNITY_EPOCH_API_URL
