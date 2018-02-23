@@ -50,6 +50,13 @@ nav {
   top:0;
   width:100%;
 }
+nav {
+  max-width:$content-max-width - 200px;
+  margin:0 auto;
+  //text-align:center;
+  //display:flex;
+  //justify-content:center;
+}
 nav >.inner >:first-child ,
 nav >.inner >:last-child {
   @include tablet-and-desktop {
@@ -60,10 +67,6 @@ nav >.inner >:last-child {
   text-align:right;
 }
 nav .inner {
-  margin:0 auto;
-  width:calc(100% - #{2 * $content-margin});
-  display:flex;
-  justify-content:space-between;
 }
 nav .links > * {
 }
