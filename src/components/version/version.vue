@@ -11,7 +11,18 @@
       </div>
       <ae-divider />
 
-      <h3>waiting for signature</h3>
+      <div v-if='waitingFor.length > 0'>
+        <h3>waiting for signature</h3>
+        <div class='author grid' v-for='s in waitingFor'>
+          <div><ae-identity-avatar :address='s'/></div>
+          <div>{{s}}</div>
+        </div>
+      </div>
+      <div v-else>
+        <p>
+          All parties signed this version
+        </p>
+      </div>
 
       <div v-if='!signedByYou'>
         <p>
@@ -47,6 +58,12 @@ export default {
   computed: {
     myAddress () {
       return this.$store.state.account
+    },
+    document () {
+      return Object.values(this.$store.state.documents).filter(d => d.id === this.documentId)[0]
+    },
+    waitingFor () {
+      return this.document.authors.filter(a => !this.version.signedBy.includes(a))
     },
     signedByYou () {
       return this.version.signedBy.indexOf(this.myAddress) > -1
