@@ -58,38 +58,19 @@ const store = new Vuex.Store({
       state.networkId = networkId
     },
     setAccount (state, account) {
-      Vue.set(state, 'documents', {})
       state.account = account
-    },
-    addDocument (state, document) {
-      Vue.set(state.documents, document.id, document)
-    },
-    addVersion ({ documents, account }, { documentId, content }) {
-      documents[documentId].versions.push({ content, signedBy: [account] })
-    },
-    signVersion ({ documents, account }, { documentId, versionId }) {
-      documents[documentId].versions[versionId].signedBy.push(account)
     }
   },
 
   actions: {
     async createDocument ({ getters: { contract }, commit, state: { account } }, { content, authors }) {
       await contract.methods.createDocument(await saveContent(content), authors).send()
-      commit('addDocument', {
-        authors: [...authors, account],
-        versions: [{
-          content,
-          signedBy: [account]
-        }]
-      })
     },
     async addVersion ({ getters: { contract }, commit }, { documentId, content }) {
-      await contract.methods.signVersion(documentId, await saveContent(content)).send()
-      commit('addVersion', { documentId, content })
+      await contract.methods.addVersion(documentId, await saveContent(content)).send()
     },
     async signVersion ({ getters: { contract }, commit }, { documentId, versionId }) {
       await contract.methods.signVersion(documentId, versionId).send()
-      commit('signVersion', { documentId, versionId })
     }
   }
 })
@@ -123,6 +104,7 @@ store.watch(
       if (syncDocumentsRunning) return
       syncDocumentsRunning = true
       const documentIds = await contract.methods.authorOfDocuments().call()
+      const documents = {}
       await Promise.all(documentIds.map(async (documentId) => {
         const document = { id: documentId }
         document.authors = await contract.methods.documentAuthors(documentId).call()
@@ -132,8 +114,10 @@ store.watch(
           t.content = await getContent(t.content)
           return { content: t.content, signedBy: t.signedBy }
         }))
-        Vue.set(store.state.documents, documentId, document)
+        documents[documentId] = document
       }))
+      Vue.set(store.state, 'documents', documents)
+      syncDocumentsRunning = false
     }
 
     documentsPollInterval = setInterval(syncDocuments, 2000)
