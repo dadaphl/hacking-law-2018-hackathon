@@ -3,7 +3,7 @@
     <h1>Document {{id}}</h1>
 
     <div class="document" v-if='document'>
-      <version v-for='v, i in document.versions' :version='v' :vnum='i'/>
+      <version v-for='v, i in document.versions' :documentId='id' :version='v' :vnum='i'/>
       <ae-panel>
         <h2>Create new Version</h2>
         <froala :tag="'textarea'" :config="config" v-model="model"></froala>
@@ -54,8 +54,10 @@ export default {
       this.$store.dispatch('addVersion', {
         content: this.model,
         documentId: this.id
+      }).then(f => {
+        this.model = ''
       })
-    }
+    },
   }
 }
 </script>
