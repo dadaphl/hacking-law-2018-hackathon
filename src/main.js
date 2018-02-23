@@ -4,6 +4,7 @@ import VueResource from 'vue-resource'
 import router from './router'
 import VueFroala from 'vue-froala-wysiwyg'
 import VeeValidate from 'vee-validate'
+import store from './store'
 
 // Require Froala Editor js file.
 require('froala-editor/js/froala_editor.pkgd.min')
@@ -65,5 +66,6 @@ Vue.filter('humanDate', humanDate)
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
