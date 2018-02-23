@@ -126,7 +126,7 @@ store.watch(
 
 window.addEventListener('load', async () => {
   if (await idManager.checkIdManager()) {
-    store.commit('setWeb3Provider', idManager.currentProvider)
+    store.commit('setWeb3Provider', idManager.web3.currentProvider)
   } else if (window.web3) {
     store.commit('setWeb3Provider', window.web3.currentProvider)
   } else {

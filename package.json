@@ -14,7 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@aeternity/aepp-components": "^2.0.1",
+    "@aeternity/aepp-components": "^2.0.5",
     "@aeternity/id-manager-provider": "0.0.10",
     "bs58": "^4.0.1",
     "ipfs-mini": "^1.1.2",
