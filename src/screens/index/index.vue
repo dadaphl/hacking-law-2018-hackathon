@@ -32,18 +32,7 @@ export default {
   },
   computed: {
     document () {
-      return [
-        {
-          authors: ['0x92e50fFf3e036a4674FE5b2Bc40Fe910777aDe85'],
-          versions: [
-            {
-              content: 'Ipsum cupiditate quos cumque nesciunt possimus? Consequuntur quod itaque delectus error rem Nostrum ex at rerum et veritatis. Dignissimos mollitia maxime nam illum ipsum Laboriosam ducimus enim mollitia quis atque.',
-              signedBy: ['0x92e50fFf3e036a4674FE5b2Bc40Fe910777aDe85']
-            }
-          ]
-        }
-      ]
-      //return this.$store.state.documents
+      return this.$store.state.documents
     }
   }
 }

@@ -132,6 +132,7 @@ window.addEventListener('load', async () => {
   } else {
     store.commit('setWeb3Provider', new Web3.providers.HttpProvider(rpcUrl))
   }
+  console.log('load')
 })
 
 export default store

@@ -85,6 +85,10 @@ export default {
   },
   methods: {
     save () {
+      this.$store.dispatch('createDocument', {
+          content: this.model,
+        authors: this.participants.map(a => a.address)
+      })
     },
     switchToAddMode () {
       this.inAddMode = true
