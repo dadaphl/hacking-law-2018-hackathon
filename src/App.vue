@@ -7,6 +7,11 @@
         <!--</router-link>-->
       <!--</div>-->
     <!--</nav>-->
+    <ae-panel>
+      <h2>Your Account</h2>
+      <ae-identity-avatar :address='myAddress'/>
+        {{myAddress}}
+    </ae-panel>
     <main>
       <router-view/>
     </main>
@@ -14,9 +19,20 @@
 </template>
 
 <script>
+import {
+  AePanel,
+  AeIdentityAvatar
+} from '@aeternity/aepp-components'
 export default {
   name: 'app',
+  components: {
+    AePanel,
+    AeIdentityAvatar
+  },
   computed: {
+    myAddress () {
+      return this.$store.state.account
+    }
   }
 }
 </script>
