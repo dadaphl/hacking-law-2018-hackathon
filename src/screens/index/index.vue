@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Your Documents</h1>
-      <div v-if='document.length' >
-        <docprev v-for='d in document' :document='d' />
+      <div v-if='documents' >
+        <docprev v-for='d in documents' :document='d' />
       </div>
       <p v-else class='center'>
          You dont have any Documents yet, create one
@@ -21,6 +21,7 @@ import {
   AeDivider,
   AePanel
 } from '@aeternity/aepp-components'
+import { mapState } from 'vuex'
 import Docprev from '../../components/docprev/docprev.vue'
 export default {
   components: {
@@ -30,10 +31,8 @@ export default {
     AePanel,
     Docprev
   },
-  computed: {
-    document () {
-      return this.$store.state.documents
-    }
-  }
+  computed: mapState({
+    documents: state => Object.values(state.documents)
+  })
 }
 </script>

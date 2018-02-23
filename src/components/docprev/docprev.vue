@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="center">
-        <ae-button type='exciting' :to='"/view/"'>View Document</ae-button>
+        <ae-button type='exciting' :to='`/view/${document.id}`'>View Document</ae-button>
       </div>
     </ae-panel>
   </div>

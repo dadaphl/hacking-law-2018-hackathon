@@ -113,3 +113,16 @@ nav a.router-link-exact-active.link:after {
 h1 {
   text-align:center;
 }
+.author.grid {
+  align-items:center;
+}
+.author.grid :first-child {
+  margin-right:10px;
+}
+.author.grid {
+  margin-top:5px;
+  margin-bottom:5px;
+}
+.author.grid :last-child {
+  font-family:'Roboto Mono'
+}

@@ -86,7 +86,7 @@ export default {
   methods: {
     save () {
       this.$store.dispatch('createDocument', {
-          content: this.model,
+        content: this.model,
         authors: this.participants.map(a => a.address)
       })
     },
