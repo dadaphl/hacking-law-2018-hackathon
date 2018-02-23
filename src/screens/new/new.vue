@@ -1,7 +1,7 @@
 <template>
   <div class='new-screen screen'>
     <ae-panel>
-      <h2>New Document</h2>
+      <h2>New Agreement</h2>
       <froala :tag="'textarea'" :config="config" v-model="model"></froala>
     </ae-panel>
     <ae-panel>
@@ -9,12 +9,12 @@
       <div class="participants">
         <div v-if='participants.length'>
           <div class='author grid' v-for='s in participants'>
-            <div><ae-identity-avatar :address='s'/></div>
+            <div><ae-identity-avatar :address='s.address'/></div>
             <div>{{s.address}}</div>
           </div>
         </div>
         <p v-else-if='!inAddMode'>
-          add some participants to your document
+          add some participants to your Agreement
         </p>
 
         <div class='add-collaborator' v-if='inAddMode'>
@@ -36,13 +36,14 @@
         <div v-if='!inAddMode' class="center">
           <ae-button @click='switchToAddMode' type='exciting'>
             <ae-icon invert type='exciting' name='plus' slot='icon'/>
-            add collaborator
+            Add Participant
           </ae-button>
         </div>
       </div>
     </ae-panel>
     <div class="center">
-      <ae-button type='dramatic' @click="save">save and sign document</ae-button>
+      <ae-button v-if='!loading' type='dramatic' @click="save">Save and Sign Agreement</ae-button>
+      <ae-loader v-else />
     </div>
   </div>
 </template>
@@ -51,6 +52,7 @@
 import {
   AeButton,
   AeIcon,
+  AeLoader,
   AeIdentityAvatar,
   AeTextarea,
   AeAddressInput,
@@ -62,6 +64,7 @@ export default {
     AeButton,
     AeTextarea,
     AeIdentityAvatar,
+    AeLoader,
     AeIcon,
     AeAddressInput,
     AeDivider,
@@ -69,6 +72,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       inAddMode: false,
       newCollabAddress: '',
       config: {
@@ -85,10 +89,15 @@ export default {
   computed: {
   },
   methods: {
-    save () {
-      this.$store.dispatch('createDocument', {
+    async save () {
+      this.loading = true
+      await this.$store.dispatch('createDocument', {
         content: this.model,
         authors: this.participants.map(a => a.address)
+      })
+      this.loading = false
+      this.$router.push({
+        name: 'Index'
       })
     },
     switchToAddMode () {

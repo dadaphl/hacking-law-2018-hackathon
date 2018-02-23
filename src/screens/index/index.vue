@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h1>Your Documents</h1>
+    <h1>Your Agreements</h1>
+    <p v-if='!documents.length' class='center'>
+       You dont have any Agreements yet, create one
+    </p>
+    <div class="center">
+      <ae-button type='dramatic' to='/new'>
+        Create new Agreement
+      </ae-button>
+    </div>
       <div v-if='documents' >
         <docprev v-for='d in documents' :document='d' />
-      </div>
-      <p v-else class='center'>
-         You dont have any Documents yet, create one
-      </p>
-      <div class="center">
-        <ae-button type='exciting' to='/new'>
-          Create new Document
-        </ae-button>
       </div>
   </div>
 </template>

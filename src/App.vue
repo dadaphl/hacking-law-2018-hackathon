@@ -1,10 +1,21 @@
 <template>
   <div id="app">
-    <ae-panel>
-      <h2>Your Account</h2>
-      <ae-identity-avatar :address='myAddress'/>
-      {{myAddress}}
-    </ae-panel>
+    <ae-panel class='your-account'>
+      <strong>Your Account</strong>
+      <div class="author grid">
+        <div>
+
+          <ae-identity-avatar :address='myAddress'/>
+        </div>
+        <div>
+        {{myAddress}}
+        </div>
+      </div>
+      </ae-panel>
+    <nav>
+      <router-link to='/'>Home</router-link>
+      <router-link to='/new'>New Agreement</router-link>
+    </nav>
     <main>
       <router-view/>
     </main>
