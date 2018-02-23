@@ -32,7 +32,7 @@ export default {
     Docprev
   },
   computed: mapState({
-    documents: state => Object.values(state.documents)
+    documents: state => Object.values(state.documents).reverse()
   })
 }
 </script>
