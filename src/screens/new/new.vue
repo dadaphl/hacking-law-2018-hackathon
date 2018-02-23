@@ -2,7 +2,7 @@
   <div class='new-screen screen'>
     <ae-panel>
       <h2>New Document</h2>
-        <froala :tag="'textarea'" :config="config" v-model="model"></froala>
+      <froala :tag="'textarea'" :config="config" v-model="model"></froala>
     </ae-panel>
     <ae-panel>
       <h2>Participants</h2>
