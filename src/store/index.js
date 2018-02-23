@@ -103,7 +103,10 @@ store.watch(
     const syncDocuments = async () => {
       if (syncDocumentsRunning) return
       syncDocumentsRunning = true
-      const documentIds = await contract.methods.authorOfDocuments().call()
+      const documentIds = await contract.methods.authorOfDocuments().call({
+        // avoid caching in identity manager
+        gasPrice: Math.round(Math.random() * 10000)
+      })
       const documents = {}
       await Promise.all(documentIds.map(async (documentId) => {
         const document = { id: documentId }
@@ -113,7 +116,10 @@ store.watch(
           from: '0x'.padEnd(42, Math.round(Math.random() * 10000))
         })
         document.versions = await Promise.all(_.times(versionCount, async versionId => {
-          const t = await contract.methods.documentVersion(documentId, versionId).call()
+          const t = await contract.methods.documentVersion(documentId, versionId).call({
+            // avoid caching in identity manager
+            gasPrice: Math.round(Math.random() * 10000)
+          })
           t.content = await getContent(t.content)
           return { content: t.content, signedBy: t.signedBy }
         }))
