@@ -108,7 +108,10 @@ store.watch(
       await Promise.all(documentIds.map(async (documentId) => {
         const document = { id: documentId }
         document.authors = await contract.methods.documentAuthors(documentId).call()
-        const versionCount = await contract.methods.documentVersionCount(documentId).call()
+        const versionCount = await contract.methods.documentVersionCount(documentId).call({
+          // avoid caching in identity manager
+          from: '0x'.padEnd(42, Math.round(Math.random() * 10000))
+        })
         document.versions = await Promise.all(_.times(versionCount, async versionId => {
           const t = await contract.methods.documentVersion(documentId, versionId).call()
           t.content = await getContent(t.content)
@@ -126,13 +129,12 @@ store.watch(
 
 window.addEventListener('load', async () => {
   if (await idManager.checkIdManager()) {
-    store.commit('setWeb3Provider', idManager.currentProvider)
+    store.commit('setWeb3Provider', idManager.web3.currentProvider)
   } else if (window.web3) {
     store.commit('setWeb3Provider', window.web3.currentProvider)
   } else {
     store.commit('setWeb3Provider', new Web3.providers.HttpProvider(rpcUrl))
   }
-  console.log('load')
 })
 
 export default store
