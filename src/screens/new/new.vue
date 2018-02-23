@@ -8,8 +8,9 @@
       <h2>Participants</h2>
       <div class="participants">
         <div v-if='participants.length'>
-          <div v-for='p in participants' class="collaborator grid">
-            <ae-identity-avatar :address='p.address'/>
+          <div class='author grid' v-for='s in participants'>
+            <div><ae-identity-avatar :address='s'/></div>
+            <div>{{s.address}}</div>
           </div>
         </div>
         <p v-else-if='!inAddMode'>
